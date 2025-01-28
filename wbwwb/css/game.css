@@ -5,55 +5,64 @@
 	src: url('Poppins-Medium.ttf') format('truetype');
 }
 
-html, body{
+html, body {
 	width: 100%;
 	height: 100%;
-}
-body{
-	font-family: 'Poppins';
 	margin: 0;
+	padding: 0;
+	overflow: hidden;
 	background: #222;
-	position:relative;
+	font-family: 'Poppins', sans-serif;
+	position: relative;
 }
-#stage{
+
+#stage {
 	background: #000;
-	width:960px; height:540px;
-	position:absolute;
-	margin:auto;
-	top:0; left:0; right:0; bottom:0;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
 	cursor: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.overlay{
 
+.overlay {
 	display: none;
-
 	text-align: center;
 	color: #fff;
 	letter-spacing: 1px;
-
-	width:500px; height:170px;
-
-	position:absolute;
-	margin:auto;
-	top:0; left:0; right:0; bottom:0;
-
+	width: 500px;
+	height: 170px;
+	position: absolute;
+	margin: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
-.overlay > div:nth-child(1){
+
+.overlay > div:nth-child(1) {
 	font-size: 100px;
 	line-height: 100px;
 }
-.overlay > div:nth-child(2){
+
+.overlay > div:nth-child(2) {
 	font-size: 20px;
 }
-#modal_shade{
+
+#modal_shade {
 	display: none;
-	background: rgba(0,0,0,0.8);
-	width:960px; height:540px;
-	position:absolute;
-	margin:auto;
-	top:0; left:0; right:0; bottom:0;
+	background: rgba(0, 0, 0, 0.8);
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
 	cursor: pointer;
 }
-#paused{
+
+#paused {
 	cursor: pointer;
 }
