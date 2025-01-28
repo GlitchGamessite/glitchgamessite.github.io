@@ -69,13 +69,15 @@
         showBanner: unityShowBanner,
       };
 
-      document.body.style.overflow = 'hidden';
-      document.querySelector("#unity-loading-bar").style.display = "none";
-
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {}).then((unityInstance) => {}).catch((message) => {
+        createUnityInstance(canvas, config, (progress) => {
+          console.log(`Loading progress: ${progress * 100}%`);
+        }).then((unityInstance) => {
+          console.log("Unity instance created successfully.");
+        }).catch((message) => {
+          console.error("Unity instance failed to load:", message);
           alert(message);
         });
       };
