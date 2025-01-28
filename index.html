@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple HTML Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .calculator {
+            display: inline-block;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .screen {
+            width: 100%;
+            padding: 10px;
+            font-size: 20px;
+            text-align: right;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 60px);
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #d0d0d0;
+        }
+        button:active {
+            background-color: #c0c0c0;
+        }
+        #result {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">simplehtmlcalculator.net</div>
+    <div class="calculator">
+        <input type="text" id="screen" class="screen" readonly>
+        <div class="button-grid">
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button onclick="setOperator('/')">÷</button>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button onclick="setOperator('*')">×</button>
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button onclick="setOperator('-')">-</button>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="clearScreen()">C</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="setOperator('+')">+</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let currentInput = '';
+        let operator = '';
+        let firstNumber = null;
+
+        function appendNumber(number) {
+            currentInput += number;
+            updateScreen();
+        }
+
+        function setOperator(op) {
+            if (currentInput !== '') {
+                if (firstNumber === null) {
+                    firstNumber = parseFloat(currentInput);
+                }
+                operator = op;
+                currentInput = '';
+                updateScreen();
+            }
+        }
+
+        function calculate() {
+            if (firstNumber !== null && currentInput !== '' && operator) {
+                const secondNumber = parseFloat(currentInput);
+                let result;
+                switch (operator) {
+                    case '+':
+                        result = firstNumber + secondNumber;
+                        break;
+                    case '-':
+                        result = firstNumber - secondNumber;
+                        break;
+                    case '*':
+                        result = firstNumber * secondNumber;
+                        break;
+                    case '/':
+                        result = secondNumber !== 0 ? firstNumber / secondNumber : 'Error (÷0)';
+                        break;
+                    default:
+                        result = 'Error';
+                }
+                currentInput = result.toString();
+                operator = '';
+                firstNumber = null;
+                updateScreen();
+            }
+        }
+
+        function clearScreen() {
+            currentInput = '';
+            operator = '';
+            firstNumber = null;
+            updateScreen();
+        }
+
+        function updateScreen() {
+            document.getElementById('screen').value = currentInput;
+        }
+    </script>
+</body>
+</html>
