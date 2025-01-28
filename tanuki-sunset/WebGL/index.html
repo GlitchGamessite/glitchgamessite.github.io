@@ -1,94 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-us">
-<style>
-  button {
-    background: none !important;
-    border: none;
-    padding: 15px;
-    font-family: arial, sans-serif;
-    color: #069;
-    cursor: pointer;
-    margin: 1px 1px;
-    display: inline-block;
-  }
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player</title>
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="TemplateData/UnityProgress.js"></script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #000;
+      }
 
-  button.head {
-    font-family: arial, sans-serif;
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-
-  .updates {
-    font-family: none;
-    float: right;
-  }
-
-  .test {
-    text-align: center;
-    color: #f2f2f2;
-    font-size: 17px;
-    padding: 14px 16px;
-  }
-
-  .games {
-    float: left;
-    text-align: center;
-  }
-
-  img {
-    border-radius: 12px;
-    width: 200px;
-    height: 200px;
-  }
-
-  body {
-    background: #36393F;
-    font-family: arial, sans-serif;
-    color: #f2f2f2;
-  }
-
-  .topnav {
-    background-color: #27292e;
-    overflow: hidden;
-  }
-</style>
-
-<head>
-      <div class="topnav">
-      <button class="head" onclick="window.location.href='https://johnmathtips.ga/new.html'"">Games</button>
-      <button class=" head" onclick="window.location.href='https://johnmathtips.ga/updates.html'">Update Log</button>
-      <button class="head" onclick="window.location.href='https://forms.gle/dHuVbXWa2tSaaWqc7'">Game
-        Suggestions</button>
-      <div class="test">
-        <b>Untilted Game Site</b>
-      </div>
-    </div>
-
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Unity WebGL Player | Tanuki Sunset</title>
-  <link rel="shortcut icon" href="TemplateData/favicon.ico">
-  <link rel="stylesheet" href="TemplateData/style.css">
-  <script src="TemplateData/UnityProgress.js"></script>
-  <script src="Build/UnityLoader.js"></script>
-  <script>
-    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/WebGL.json", {onProgress: UnityProgress});
-  </script>
-</head>
-
-<body>
-  <div class="webgl-content">
-    <div id="gameContainer" style="width: 960px; height: 600px"></div>
-    <div class="footer">
-      <div class="webgl-logo"></div>
-      <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-      <div class="title">Tanuki Sunset</div>
-    </div>
-  </div>
-</body>
-
+      canvas {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    <script type="text/javascript">
+      var Module = {
+        TOTAL_MEMORY: 268435456,
+        errorhandler: null, // arguments: err, url, line. This function must return 'true' if the error is handled, otherwise 'false'
+        compatibilitycheck: null,
+        dataUrl: "Release/WebGL.data",
+        codeUrl: "Release/WebGL.js",
+        memUrl: "Release/WebGL.mem",
+      };
+    </script>
+    <script src="Release/UnityLoader.js"></script>
+  </body>
 </html>
