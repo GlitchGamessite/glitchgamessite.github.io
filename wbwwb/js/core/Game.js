@@ -65,6 +65,9 @@ Handles the DOM, load, init, update & render loops
 		Game.width = window.innerWidth;
 		Game.height = window.innerHeight;
 		if (Game.renderer) {
+			Game.renderer.view.style.position = "absolute";
+			Game.renderer.view.style.left = "0px";
+			Game.renderer.view.style.top = "0px";
 			Game.renderer.resize(Game.width, Game.height);
 		}
 	};
