@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Background with Fullscreen iFrame</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #video {
+            position: absolute;
+            top: -100vh; /* Move it off-screen */
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+        #iframe-container {
+            width: 100vw;
+            height: 100vh;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #enableButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="enableButton">Enable Camera</button>
+    <video id="video" autoplay playsinline></video>
+    <div id="iframe-container" style="display: none;">
+        <iframe src="https://www.example.com"></iframe> 
+    </div>
+
+    <script>
+        document.getElementById("enableButton").addEventListener("click", async function() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                document.getElementById("video").srcObject = stream;
+                
+                // Hide button and show iframe
+                document.getElementById("enableButton").style.display = "none";
+                document.getElementById("iframe-container").style.display = "block";
+            } catch (error) {
+                alert("Camera access denied or unavailable.");
+            }
+        });
+    </script>
+</body>
+</html>
