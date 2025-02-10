@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matchmaking</title>
+</head>
+<body>
+    <h1>Matchmaking System</h1>
+    <button id="queueBtn">Start Matchmaking</button>
+    <button id="acceptBtn" style="display: none;">Accept Match</button>
+    <p id="status"></p>
+
+    <script>
+        const socket = new WebSocket("ws://localhost:3000");
+
+        document.getElementById("queueBtn").addEventListener("click", () => {
+            socket.send(JSON.stringify({ type: "joinQueue" }));
+            document.getElementById("status").innerText = "Searching for match...";
+        });
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+
+            if (data.type === "matchFound") {
+                document.getElementById("acceptBtn").style.display = "block";
+                document.getElementById("status").innerText = "Match found! Accept within 10s.";
+            }
+
+            if (data.type === "redirect") {
+                window.location.href = "https://www.youtube.com";
+            }
+        };
+
+        document.getElementById("acceptBtn").addEventListener("click", () => {
+            socket.send(JSON.stringify({ type: "acceptMatch" }));
+            document.getElementById("status").innerText = "Waiting for other player...";
+        });
+    </script>
+</body>
+</html>
