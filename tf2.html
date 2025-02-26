@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TF2 Auto-Connector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        #log {
+            width: 100%;
+            height: 400px;
+            overflow-y: scroll;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TF2 Auto-Connector</h1>
+    <p>Target server: 79.127.217.197:22912</p>
+    <button onclick="startConnecting()">Start Connecting</button>
+    <button onclick="stopConnecting()">Stop Connecting</button>
+    <p><strong>Note:</strong> Steam and TF2 must be installed. Browser may ask for permission to open Steam links.</p>
+    <div id="log"></div>
+
+    <script>
+        const logDiv = document.getElementById('log');
+        let attemptCount = 0;
+        let intervalId = null;
+        const serverUrl = "steam://connect/79.127.217.197:22912";
+
+        function logMessage(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.textContent += `[${timestamp}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function attemptConnection() {
+            attemptCount++;
+            logMessage(`Attempt #${attemptCount} to connect...`);
+            
+            // Create a hidden link and click it programmatically
+            const link = document.createElement('a');
+            link.href = serverUrl;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function startConnecting() {
+            if (!intervalId) {
+                logMessage("Starting connection attempts every 300ms...");
+                intervalId = setInterval(attemptConnection, 300);
+            }
+        }
+
+        function stopConnecting() {
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+                logMessage("Stopped connection attempts");
+            }
+        }
+    </script>
+</body>
+</html>
